@@ -1,0 +1,15 @@
+from opencage.geocoder import OpenCageGeocode
+
+# Initialize the geocoder with your API key
+geocoder = OpenCageGeocode('0aff6483b8c243cf9a88f1c14dfc5866')
+
+def get_city_name(lat, lon):
+    if lon < -180 or lon > 180:
+        return 'Invalid Longitude'
+    result = geocoder.reverse_geocode(lat, lon)
+    if result:
+        return result[0]['components'].get('city', result[0]['components'].get('town', ''))
+    return 'Not Found'
+
+# Apply the function to get city names
+df['city'] = df.apply(lambda row: get_city_name(row['latitude'], row['longitude']), axis=1)
