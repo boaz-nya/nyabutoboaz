@@ -1,0 +1,28 @@
+from geopy.geocoders import Nominatim
+import pandas as pd
+import time
+
+# Load your data
+df = pd.read_csv("C:/Users/user/Desktop/df2.csv",nrows=21)  # Assuming columns 'latitude' and 'longitude'
+
+
+
+#Initialize geocoder
+geolocator = Nominatim(user_agent="geoapi")
+ 
+# Function to get location
+def get_city(lat, lon):
+    try:
+        #return lat, lon
+        location = geolocator.reverse((lat, lon), language='en')
+        return location.raw['address'].get('city', '')  # or 'town', 'village' as fallback
+    except:
+        return None
+
+# # Apply to DataFrame
+# df['city'] = df.apply(lambda row: get_city(row['latitude'], row['longitude']), axis=1)
+#get_city()
+for index,row in df.iterrows():
+    print (row.get("latitude"),row["longitude"])
+    get_city(row["latitude"],row["longitude"])
+     
