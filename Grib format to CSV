@@ -1,0 +1,8 @@
+import xarray as xr
+import pandas as pd
+
+ds = xr.open_dataset("C:/Users/user/Desktop/5f6f3d608651f3e82d33e0d39785e992 (2).grib", engine="cfgrib")
+df = ds.to_dataframe().reset_index()
+df.to_csv("df.csv", index=False)
+#pd.read_csv("df1.csv
+df
